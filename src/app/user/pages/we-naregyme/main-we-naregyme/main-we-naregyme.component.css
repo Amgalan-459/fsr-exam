@@ -1,0 +1,55 @@
+/* .our-team{
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    p{
+        font-size: large;
+    }
+    ul {
+        .person{
+            border: 1px solid black;
+            padding: 10px;
+
+            .time-link:hover {
+                color: orange;
+            }
+
+            .lk{
+                background-color: orange;
+                border: none;
+
+                &:hover {
+                    background-color: rgb(187, 132, 31);
+                }
+            }
+        }
+    }
+} */
+
+.phone-mockup {
+  max-width: 280px;
+  margin: 0 auto;
+  display: block;
+}
+
+h6 {
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+    background-color: orange;
+    border: none;
+
+    &:hover {
+        background-color: rgb(187, 132, 31);
+    }
+    font-weight: 600;
+}
+
+img{
+    height: 25vh;
+    width: 25vh;
+}

@@ -1,0 +1,294 @@
+* {
+    box-sizing: border-box;
+    line-height: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+    color: #000000;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+header, main {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    transition: .25s;
+    color: var(--dark-color);
+}
+
+a:hover {
+    color: white;
+}
+
+button {
+    background: transparent;
+    border: none;
+    border-radius: 2em;
+    cursor: pointer;
+    font-size: .875em;
+    font-weight: 600;
+    height: 2em;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    transition: .25s;
+}
+
+button:hover {
+    color: white;
+}
+
+header {
+    min-height: 10vh;
+}
+
+hr.header-hr {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+p {
+    color: black;
+    font-size: .875em;
+    hyphens: auto;
+    line-height: 1.5;
+    margin: 1em 0;
+}
+
+.logo {
+}
+
+.header-nav {
+    align-items: center;
+    flex-direction: column;
+}
+
+.header-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: .75em 0;
+}
+
+.header-menu-link {
+    color: var(--gray-color);
+    display: block;
+    font-size: .75em;
+    font-weight: 500;
+    padding: .5em .75em;
+    text-transform: uppercase;
+}
+
+.header-menu-link:hover {
+    color: var(--dark-color);
+    text-decoration: underline;
+}
+
+.ghost-button {
+    border: .125em solid gray;
+    min-width: 9em;
+    padding: 0 1em;
+}
+
+.ghost-button:hover {
+    background: var(--gray-color);
+    color: var(--light-color);
+}
+
+.sigh-out-button {
+    border: .125em solid gray;
+    color: rgb(194, 192, 192);
+    min-width: 9em;
+    padding: 0 1em;
+}
+
+.sigh-out-button:hover {
+    background: var(--gray-color);
+    color: white;
+}
+
+.type-button {
+    margin-top: 1.5em;
+}
+
+.type-button:after {
+    margin-left: .5em;
+    vertical-align: .0715em;
+}
+
+.login {
+    border: .125em solid gray;
+    color: rgb(194, 192, 192);
+    min-width: 9em;
+    padding: 0 1em;
+}
+
+.auth {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+}
+
+.auth p {
+    margin: 1px;
+}
+
+.header-banner-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    position: relative;
+    /* background: #E5FF00; */
+    background-color: #222;
+    text-align: center;
+    z-index: 11;
+}
+
+.header-banner-top .header-p {
+    color: gray;
+}
+
+.header-banner-top .primary-wrapper {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.header-banner-top .horizontal-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header-banner-top .horizontal-nav li {
+    display: inline-block;
+}
+
+.header-banner-top .horizontal-nav a {
+    display: block;
+    padding: 1.5em 1em;
+    color: #aaa;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.header-banner-top .horizontal-nav a:hover,
+.header-banner-top .horizontal-nav .active-link a {
+    color: #fff;
+}
+
+.header-banner-top .horizontal-nav .folder {
+    position: relative;
+    cursor: pointer;
+}
+
+.header-banner-top .horizontal-nav .folder ul {
+    background-color: #494949;
+    transition: padding 0.14s ease-out;
+    text-align: left;
+    position: absolute;
+    top: -9999px;
+    left: 0;
+    z-index: 999;
+}
+
+.header-banner-top .horizontal-nav .folder:hover ul {
+    top: 100%;
+    padding: 0.5em 0;
+}
+
+.header-banner-top .horizontal-nav .folder a {
+    padding: 0.5em 1em;
+    white-space: nowrap;
+}
+
+.mobile-menu-box {
+    display: none;
+}
+
+.mobile-menu-label {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 22px;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.mobile-menu-label span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #fff;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+@media screen and (max-width: 700px) {
+    .header-banner-top {
+        width: 100%;
+    }
+    .header-nav{
+        display: flex;
+        width: fit-content;
+    }
+    .auth,
+    .logged-in {
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 0.5em 1em;
+        width: fit-content;
+    }
+
+    .mobile-menu-label {
+        display: flex;
+    }
+
+    .horizontal-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #222;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .mobile-menu-box:checked~nav {
+        max-height: 500px;
+    }
+
+    .mobile-menu-box:checked+.mobile-menu-label span:nth-child(1) {
+        transform: rotate(45deg) translateY(9px);
+    }
+
+    .mobile-menu-box:checked+.mobile-menu-label span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-box:checked+.mobile-menu-label span:nth-child(3) {
+        transform: rotate(-45deg) translateY(-9px);
+    }
+
+    .header-menu {
+        flex-direction: column;
+        align-items: center;
+        padding: 1em 0;
+    }
+
+    .header-menu li {
+        margin: 0.5em 0;
+    }
+}

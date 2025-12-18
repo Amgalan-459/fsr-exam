@@ -1,0 +1,21 @@
+@for (calc of calculators; track calc; let i = $index) {
+  <div class="calculator card p-4 shadow">
+    <h5 class="text-center mb-3 fw-semibold text-dark">Калькулятор {{ i + 1 }}</h5>
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Рост (см):</label>
+      <input #height type="number" class="form-control input-custom">
+    </div>
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Вес (кг):</label>
+      <input #weight type="number" class="form-control input-custom">
+    </div>
+    <button class="btn btn-custom w-100" (click)="calculateBMI(height.value, weight.value, i)">
+      Рассчитать
+    </button>
+    @if (calc.result) {
+      <div class="result-box mt-3">
+        {{ calc.result }}
+      </div>
+    }
+  </div>
+}

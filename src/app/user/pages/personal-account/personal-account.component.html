@@ -1,0 +1,305 @@
+<div class="sidebar" (mouseleave)="closeAllDrops()">
+  <ul class="menu-items">
+    @for (item of menu; track item; let i = $index) {
+      <li (click)="onClickDrop($event, i)">
+        <img [src]="item.icon" [alt]="item.label">
+        <span class="label">{{ item.label }}</span>
+        <div class="dropside addictional" #dropside>
+          <ul class="menu-items">
+            @for (child of item.children; track child; let j = $index) {
+              <li
+                (click)="child.subChildren ? onClickSubDrop($event, j) : null" class="menu-item">
+                @if(child.link){
+                  <a class="label" [routerLink]="child.link">{{ child.label }}</a>
+                } @else {
+                  <span class="label">{{ child.label }}</span>
+                }
+                <div class="sub-dropside" #subdropside>
+                  <ul>
+                    @for (sub of child.subChildren; track sub) {
+                      <li class="menu-item" (click)="openCalendar(sub)">
+                        <a [routerLink]="sub.link">{{ sub.label }}</a>
+                      </li>
+                    }
+                  </ul>
+                </div>
+              </li>
+            }
+          </ul>
+        </div>
+      </li>
+    }
+  </ul>
+</div>
+
+<div class="content">
+  @if (showCalendar) {
+    <div class="calendar-overlay" (click)="closeCalendar($event)">
+      <div class="calendar-window" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeCalendar($event)">✕</button>
+        <h2>ТРЕНИРОВОЧНЫЙ КАЛЕНДАРЬ {{ currentYear }}</h2>
+        <div class="months">
+          @for (month of months; track month) {
+            <div class="month">
+              <h3>{{ month.name }}</h3>
+              <div class="days">
+                @for (day of month.days; track day) {
+                  <a
+                    [routerLink]="['/calendar', currentYear + '-' + month.num + '-' + day]">
+                    {{ day }}
+                  </a>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+
+  <section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+
+              @if (!editMode) {
+                <h5 class="my-3">{{ user?.name }} {{ user?.surname }}</h5>
+              }
+
+              @if (editMode) {
+                <div>
+                  <input type="text" [value]="editUser.name" (input)="onInputChange('name', $event)"
+                    class="form-control mb-2">
+                  <input type="text" [value]="editUser.surname" (input)="onInputChange('surname', $event)"
+                    class="form-control">
+                </div>
+              }
+
+              <div class="mt-3">
+                @if (!editMode) {
+                  <button class="btn btn-primary"
+                  (click)="enableEdit()">Редактировать</button>
+                }
+                @if (editMode) {
+                  <button class="btn btn-success me-2"
+                  (click)="saveChanges()">Сохранить</button>
+                }
+                @if (editMode) {
+                  <button class="btn btn-secondary"
+                  (click)="cancelEdit()">Отмена</button>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  @if (!editMode) {
+                    <p class="text-muted mb-0">{{ user?.email }}</p>
+                  }
+                  @if (editMode) {
+                    <input type="text" [value]="editUser.email"
+                      (input)="onInputChange('email', $event)" class="form-control mb-2">
+                  }
+                </div>
+              </div>
+              <hr>
+
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Телефон</p>
+                  </div>
+                  <div class="col-sm-9">
+                    @if (!editMode) {
+                      <p class="text-muted mb-0">{{ user?.phoneNumber }}</p>
+                    }
+                    @if (editMode) {
+                      <input type="text" [value]="editUser.phoneNumber"
+                        (input)="onInputChange('phoneNumber', $event)" class="form-control mb-2">
+                    }
+                  </div>
+                </div>
+                <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Пол</p>
+                    </div>
+                    <div class="col-sm-9">
+                      @if (!editMode) {
+                        @if (user?.sex == 0) {
+                          <p class="text-muted mb-0">Не указано</p>
+                        }
+                        @if (user?.sex == 1) {
+                          <p class="text-muted mb-0">Мужской</p>
+                        }
+                        @if (user?.sex == 2) {
+                          <p class="text-muted mb-0">Женский</p>
+                        }
+                      }
+                      @if (editMode) {
+                        <select [value]="editUser.sex"
+                          (change)="onSelectChange('sex', $event)" class="form-control">
+                          <option [value]="0">Не указано</option>
+                          <option [value]="1">Мужской</option>
+                          <option [value]="2">Женский</option>
+                        </select>
+                      }
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-7">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Рост</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">175</p>
+                    </div>
+                  </div>
+                  <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Противопоказания</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0">Плоскостопие 3 ст.</p>
+                      </div>
+                    </div>
+                    <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Ограничения</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-muted mb-0">Нельзя давать больште нагрузки на колено</p>
+                        </div>
+                      </div>
+                      <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Норма шагов</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">от 10000 до 15000 в день</p>
+                          </div>
+                        </div>
+                        <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Уровень физ подготовки</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">Тренированный(регулярные занятия спортом более 2 раза в
+                              неделю больше года)</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="card mb-4 mb-md-0">
+                            <div class="card-body">
+                              <p class="mb-4"> Анализ тела </p>
+                              <p class="mb-1" style="font-size: .77rem;">ИМТ</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 70%"
+                                aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Вес</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 72%"
+                                aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Процент жира</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 20%"
+                                aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Процент мышц</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 72%"
+                                aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Обхват левого бедра</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 72%"
+                                aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Oбхват правого бедра</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 70%"
+                                aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Обхват талии</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 55%"
+                                aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Обхват плеч</p>
+                              <div class="progress rounded mb-2" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 66%"
+                                aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Обхват груди</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 75%"
+                                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="card mb-4 mb-md-0">
+                            <div class="card-body">
+                              <p class="mb-4">Статистика</p>
+                              <p class="mb-1" style="font-size: .77rem;">Посещаемость тренировок</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 80%"
+                                aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Выполненение план</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 72%"
+                                aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Работа с весами</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 89%"
+                                aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
+                              <div class="progress rounded" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 55%"
+                                aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
+                              <div class="progress rounded mb-2" style="height: 5px;">
+                                <div class="progress-bar" role="progressbar" style="width: 1%" aria-valuenow="1"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>

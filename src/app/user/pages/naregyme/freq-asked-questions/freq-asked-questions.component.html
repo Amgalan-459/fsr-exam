@@ -1,0 +1,40 @@
+<section class="faq-section py-5">
+  <div class="container text-center">
+    <h6 class="text-uppercase fw-bold text-muted-ink mb-2">Часто задаваемые вопросы</h6>
+    <h2 class="fw-bold mb-4">FAQ</h2>
+
+    <div class="row g-4 d-none d-lg-flex">
+      @for (faq of faqs; track faq) {
+        <div class="col-lg-6">
+          <div class="faq-card p-4 h-100">
+            <h5 class="faq-question">{{ faq.question }}</h5>
+            <p class="faq-answer">{{ faq.answer }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="d-lg-none">
+      <div class="carousel-wrapper" (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
+        <div class="carousel-slides" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+          @for (faq of faqs; track faq) {
+            <div class="carousel-slide">
+              <div class="faq-card p-4 mx-auto" style="max-width: 300px;">
+                <h5 class="faq-question">{{ faq.question }}</h5>
+                <p class="faq-answer">{{ faq.answer }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="carousel-indicators position-static mt-3">
+        @for (f of faqs; track f; let i = $index) {
+          <button type="button" [class.active]="i === currentIndex"
+            (click)="goToSlide(i)">
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</section>

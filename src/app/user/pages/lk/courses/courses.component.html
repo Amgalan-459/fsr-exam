@@ -1,0 +1,63 @@
+<div class="course-player">
+  <aside class="sidebar">
+    <h3 class="sidebar-title">{{ courseTitle }}</h3>
+    <div class="student">
+      <div class="avatar"></div>
+      <div>
+        <p class="student-name">{{ student.name }}</p>
+        <p class="student-status">Мой прогресс</p>
+      </div>
+    </div>
+
+    <ul class="modules">
+      @for (module of modules; track module) {
+        <li>
+          <div class="module-header" (click)="toggleModule(module)">
+            <span>{{ module.title }}</span>
+            <span class="progress-count">{{ moduleProgress(module) }}</span>
+          </div>
+          <div class="module-progress">
+            <div class="progress-bar" [style.width.%]="moduleProgressPercent(module)">
+            </div>
+          </div>
+          @if (module.expanded) {
+            <ul class="lessons">
+              @for (lesson of module.lessons; track lesson) {
+                <li [class.active]="lesson.id === activeLessonId"
+                  (click)="selectLesson(lesson)">
+                  <span>{{ lesson.title }}</span>
+                  @if (lesson.completed) {
+                    <span class="check">✔</span>
+                  }
+                </li>
+              }
+              @if (module.test) {
+                <li class="test-link">
+                  <a (click)="openTest(module.test)">{{ module.test.title }}</a>
+                  @if (module.test.completed) {
+                    <span class="check">✔</span>
+                  }
+                </li>
+              }
+            </ul>
+          }
+        </li>
+      }
+    </ul>
+  </aside>
+
+  <main class="content">
+    <header class="content-header">
+      <h1>{{ activeLesson?.title }}</h1>
+    </header>
+
+    <section class="lesson-body">
+      @if (safeVideoUrl) {
+        <div class="video">
+          <iframe [src]="safeVideoUrl" frameborder="0" allowfullscreen></iframe>
+        </div>
+      }
+      <div class="lesson-text" [innerHTML]="activeLesson?.content"></div>
+    </section>
+  </main>
+</div>
