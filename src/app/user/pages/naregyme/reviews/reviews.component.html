@@ -1,16 +1,13 @@
 <section class="reviews-section py-5">
   <div class="container text-center">
-    <h6 class="text-uppercase fw-bold text-muted-ink mb-2">Отзывы участников</h6>
-    <h2 class="fw-bold mb-4">Что говорят о нашем проекте</h2>
+    <h2 class="fw-bold mb-4">Принцип работы платформы</h2>
 
     <div class="row g-4 d-none d-lg-flex">
       @for (review of reviews; track review) {
         <div class="col-lg-4 col-md-6">
-          <div class="review-card p-4 h-100">
+          <div class="review-card p-4 h-100 text-center">
+            <p class="review-head">{{ review.head }}</p>
             <p class="review-text">“{{ review.text }}”</p>
-            <div class="review-author mt-3">
-              <strong>{{ review.name }}</strong>, <span>{{ review.role }}</span>
-            </div>
           </div>
         </div>
       }
@@ -24,10 +21,8 @@
           @for (review of reviews; track review) {
             <div class="carousel-slide">
               <div class="review-card p-4 mx-auto" style="max-width: 280px;">
+                <p class="review-head">{{ review.head }}</p>
                 <p class="review-text">“{{ review.text }}”</p>
-                <div class="review-author mt-3">
-                  <strong>{{ review.name }}</strong>, <span>{{ review.role }}</span>
-                </div>
               </div>
             </div>
           }

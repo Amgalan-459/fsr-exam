@@ -59,3 +59,12 @@
 .carousel-indicators button.active {
   background-color: #ff7a00;
 }
+
+.review-cards{
+  height: 100%;
+}
+
+.review-head{
+  font-weight: 700;
+  font-size: 1.3rem;
+}
