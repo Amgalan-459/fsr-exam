@@ -39,18 +39,5 @@ export const routes: Routes = [
     { path: 'shop', component: ShopComponent },
     { path: 'calculators', component: MainCalcComponent },
     { path: 'about-us', component: MainWeNaregymeComponent },
-    { path: 'user/personal-account', component: PersonalAccountComponent, canActivate: [authGuard] },
-    { path: 'online-academy/available-courses', component: AvailableCoursesComponent },
-    { path: 'online-academy/available-courses/aboba', component: CoursesComponent },
-    { path: 'online-academy/other-courses', component: OtherCoursesToBuyComponent },
-    { path: 'online-academy/knowladge-base', component: KnowladgeBaseLibraryComponent },
-    { path: 'training-plan/programms-courses', component: ProgrammsCoursesComponent },
-    { path: 'training-plan/training-type', component: TrainingTypeComponent },
-    { path: 'metrics-results/base', component: BaseMrComponent },
-    { path: 'metrics-results/academy', component: AcademyMrComponent },
-    { path: 'metrics-results/training-plan', component: TrainingPlanMrComponent },
-    { path: 'metrics-results/food-plan', component: FoodPlanMrComponent },
-    { path: 'metrics-results/reports', component: RepotringMrComponent },
-    { path: 'food-plan', component: FoodPlanComponent },
     { path: '**', component: NotFoundComponent }
 ];

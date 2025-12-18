@@ -25,21 +25,6 @@
       </ul>
     </nav>
   </div>
-
-  <!-- Авторизация -->
-  @if(isLoggedIn) {
-  <div class="logged-in">
-    <p class="header-p">
-      <a class="lk" routerLink="/user/personal-account" routerLinkActive="active">Hello, {{name}}</a>
-    </p>
-    <button class="ghost-button sigh-out-button" (click)="logout()">Log out</button>
-  </div>
-  } @else {
-  <div class="auth">
-    <p><a class="login" routerLink="/auth/login" routerLinkActive="active">Login</a></p>
-    <p><a class="login" routerLink="/auth/signup" routerLinkActive="active">Sign up</a></p>
-  </div>
-  }
 </header>
 
 <main>
