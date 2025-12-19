@@ -41,7 +41,19 @@ export class KnowladgeBaseComponent {
     //     this.types.add(i.type)
     //   })
     // })
-    this.knowladgeItems = []
+    this.knowladgeItems = [
+      {
+        id: 1,
+        title: 'О наших достижениях',
+        author: 'Дмитрий Котов',
+        topic: 'История',
+        trainerId: 1,
+        type: 'text',
+        description: 'Процесс создания API.',
+        textRaw: '',
+        videoUrl: null
+    }
+    ]
   }
 
   get filteredItems() {
