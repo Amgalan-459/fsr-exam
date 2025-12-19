@@ -18,7 +18,7 @@
         <div class="carousel-slides" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
           @for (metric of metrics; track metric) {
             <div class="carousel-slide">
-              <div class="metric-card text-center mx-auto" style="max-width: 280px;">
+              <div class="metric-card text-center mx-auto" style="max-width: 300px;">
                 <div class="metric-value">{{ metric.value }}</div>
                 <div class="metric-label">{{ metric.label }}</div>
               </div>
