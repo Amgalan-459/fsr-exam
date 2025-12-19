@@ -30,17 +30,18 @@ export class KnowladgeBaseComponent {
 
   constructor(private knowlodagebaseService: KnowladgeService, private authService: AuthService) {
     this.isLoggedIn = authService.isLoggedIn()
-    knowlodagebaseService.getAllKnowladgebases().then(res => {
-      if (!res){
-        alert("ошибка заполнения")
-      }
-      this.knowladgeItems = res;
-      this.knowladgeItems.forEach(i => {
-        this.topics.add(i.topic)
-        this.authors.add(i.author)
-        this.types.add(i.type)
-      })
-    })
+    // knowlodagebaseService.getAllKnowladgebases().then(res => {
+    //   if (!res){
+    //     alert("ошибка заполнения")
+    //   }
+    //   this.knowladgeItems = res;
+    //   this.knowladgeItems.forEach(i => {
+    //     this.topics.add(i.topic)
+    //     this.authors.add(i.author)
+    //     this.types.add(i.type)
+    //   })
+    // })
+    this.knowladgeItems = []
   }
 
   get filteredItems() {
